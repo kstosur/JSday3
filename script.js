@@ -21,8 +21,10 @@ body.appendChild(carElement)
 }
 function move(){
     const time = tickDuration / 1000
-    position = position + velocity * time + (acceleration * time * time) / 2
-    velocity = velocity + acceleration * time
+    const newPosition = position + velocity * time + (acceleration * time * time) / 2
+    position = newPosition < position ? position : newPosition
+    const newVelocity = velocity + acceleration * time
+    velocity = Math.max(0, newVelocity)
     carElement.style.left = position +'px'
 }
 
